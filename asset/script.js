@@ -2,6 +2,7 @@ var searchFormEl = document.querySelector("#search-form")
 var searchInputEl = document.querySelector("#search-input")
 var searchBtnEl = document.querySelector("#search-btn")
 var resultCityEl = document.querySelector("#result-city")
+var currentDateEl = document.querySelector("#current-date")
 
 var cityLatEl = ""
 var cityLonEl = ""
@@ -38,7 +39,7 @@ function citySearchApi() {
         .then(function (data) {
             console.log(data);
             // show the first city name in the search result on dashboard
-            resultCityEl.textContent = data[0].name;
+            resultCityEl.textContent = data[0].name + " ";
             // extract latitude and longitude data, and only leave two digits after the decimal of each number
             cityLatEl = parseFloat(data[0].lat).toFixed(2);
             cityLonEl = parseFloat(data[0].lon).toFixed(2);
@@ -68,18 +69,26 @@ function weatherApi() {
         })
         .then(function (data) {
             console.log(data);
-            // convert "dt" (unix timestamp) to date format as a string and assign to a variable
-            var currentDate = new Date(data.dt * 1000).toLocaleDateString();
+            // convert "dt" (unix timestamp) to "month-date-year" format 
+            var currentYear = new Date(data.dt * 1000).getFullYear();
+            var currentMonth = new Date(data.dt * 1000).getUTCMonth();
+            var currentDate = new Date(data.dt * 1000).getUTCDate();
+            currentDateEl.textContent = "(" + currentMonth + "-" + currentDate + "-" + currentYear + ")";
             console.log(currentDate);
 
 
-            
+
+
+
+
         })
         .catch(function (error) {
             console.error(error);
         });
 
 }
+
+
 
 // var requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=Boston&limit=5&appid=bb14c28bb63d9f868721f7de3b94a011";
 
