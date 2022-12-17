@@ -18,10 +18,12 @@
     </header>
 
     <aside>
-        <form id="search-form">
+        <form id="search-form" autocomplete="off" action="/action_page.php">
             <label>Search for a City:</label>
-            <input id="search-input" class="input is-primary" type="text" placeholder="Primary input">
-            <button id="search-btn">Search</button>
+            <div class="autocomplete">
+                <input id="search-input" class="" type="text" placeholder="Primary input">
+            </div>
+            <input id="search-btn" type="submit">Search</input>
         </form>
     </aside>
 
@@ -39,9 +41,9 @@
             </span>
             
             <ul>
-                <li id="current-temp">Temp:</li>
-                <li id="current-wind">Wind:</li>
-                <li id="current-humid">Humidity:</li>
+                <li id="current-temp"></li>
+                <li id="current-wind"></li>
+                <li id="current-humid"></li>
             </ul>
         </section>
     </main>
