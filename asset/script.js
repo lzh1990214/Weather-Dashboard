@@ -3,24 +3,27 @@ var searchInputEl = document.querySelector("#search-input")
 var searchBtnEl = document.querySelector("#search-btn")
 var resultCityEl = document.querySelector("#result-city")
 
+var cityLatEl = ""
+var cityLonEl = ""
 
-function searchInputSubmit (event) {
+
+function searchInputSubmit(event) {
     event.preventDefault();
 
     searchInputEl = searchInputEl.value.trim();
-    console.log (searchInputEl);
+    console.log(searchInputEl);
 
     if (!searchInputEl) {
-      console.error('You need a enter a valid city name!');
-      return;
+        console.error('You need a enter a valid city name!');
+        return;
     };
     // execute fetch city data with geocoding API
     citySearchApi();
-  }
+}
 
 // enable "click" function on search and execute search of the key word
 searchBtnEl.addEventListener("click", searchInputSubmit);
-  
+
 
 //  function to fetch city data by city name with geocoding API
 function citySearchApi() {
@@ -33,21 +36,45 @@ function citySearchApi() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data[0].name);
-            // show the first city name on dashboard
+            console.log(data);
+            // show the first city name in the search result on dashboard
             resultCityEl.textContent = data[0].name;
-        })
+            // extract latitude and longitude data, and only leave two digits after the decimal of each number
+            cityLatEl = parseFloat(data[0].lat).toFixed(2);
+            cityLonEl = parseFloat(data[0].lon).toFixed(2);
 
+            console.log(cityLatEl);
+            console.log(cityLonEl);
+
+            weatherApi();
+
+
+        })
         .catch(function (error) {
             console.error(error);
         });
 
-    ;
-    
-
 }
 
 
+function weatherApi() {
+    var weatherQueryUrl = "api.openweathermap.org/data/2.5/forecast?";
+    var apiKey = "&appid=bb14c28bb63d9f868721f7de3b94a011";
+    weatherQueryUrl = weatherQueryUrl + "lat=" + cityLatEl + "&" + "lon=" + cityLonEl + "&appid=" + apiKey;
+    console.log(weatherQueryUrl);
+
+    fetch(weatherQueryUrl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+        .catch(function (error) {
+            console.error(error);
+        });
+
+}
 
 // var requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=Boston&limit=5&appid=bb14c28bb63d9f868721f7de3b94a011";
 
