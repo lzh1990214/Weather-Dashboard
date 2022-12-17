@@ -4,8 +4,11 @@ var searchBtnEl = document.querySelector("#search-btn")
 var resultCityEl = document.querySelector("#result-city")
 var currentDateEl = document.querySelector("#current-date")
 
-var cityLatEl = ""
-var cityLonEl = ""
+var currentTempEl = document.querySelector("#current-temp")
+var currentWindEl = document.querySelector("#current-wind")
+var currentHumidEl = document.querySelector("#current-humid")
+// var cityLatEl = ""
+// var cityLonEl = ""
 
 
 function searchInputSubmit(event) {
@@ -46,15 +49,13 @@ function citySearchApi() {
 
             console.log(cityLatEl);
             console.log(cityLonEl);
-
+            // run weather Api function
             weatherApi();
-
 
         })
         .catch(function (error) {
             console.error(error);
         });
-
 }
 
 
@@ -76,15 +77,28 @@ function weatherApi() {
             currentDateEl.textContent = "(" + currentMonth + "-" + currentDate + "-" + currentYear + ")";
             console.log(currentDate);
 
+            var currentTemp = data.main.temp;
+            // convert temperature data from K to F and only leave two digits after the decimal
+            var currentTempF = parseFloat((currentTemp - "273.15") * "1.8" + "32").toFixed(2);
+            var currentWind = data.wind.speed;
+            var currentHumid = data.main.humidity;
+            // display current temperature with fahrenheit format 
+            currentTempEl.textContent =  currentTempF + "\xB0" + "F";
+            currentWindEl.textContent = currentWind + "MPH";
+            currentHumidEl.textContent = currentHumid + "%";
+
+
+            //
+
 
 
 
 
 
         })
-        .catch(function (error) {
-            console.error(error);
-        });
+        .catch (function (error) {
+    console.error(error);
+});
 
 }
 
