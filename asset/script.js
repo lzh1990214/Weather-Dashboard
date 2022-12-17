@@ -58,10 +58,9 @@ function citySearchApi() {
 
 
 function weatherApi() {
-    var weatherQueryUrl = "api.openweathermap.org/data/2.5/forecast?";
+    var weatherQueryUrl = "https://api.openweathermap.org/data/2.5/weather?";
     var apiKey = "&appid=bb14c28bb63d9f868721f7de3b94a011";
-    weatherQueryUrl = weatherQueryUrl + "lat=" + cityLatEl + "&" + "lon=" + cityLonEl + "&appid=" + apiKey;
-    console.log(weatherQueryUrl);
+    weatherQueryUrl = weatherQueryUrl + "lat=" + cityLatEl + "&" + "lon=" + cityLonEl + apiKey;
 
     fetch(weatherQueryUrl)
         .then(function (response) {
@@ -69,6 +68,12 @@ function weatherApi() {
         })
         .then(function (data) {
             console.log(data);
+            // convert "dt" (unix timestamp) to date format as a string and assign to a variable
+            var currentDate = new Date(data.dt * 1000).toLocaleDateString();
+            console.log(currentDate);
+
+
+            
         })
         .catch(function (error) {
             console.error(error);
