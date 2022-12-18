@@ -1,22 +1,30 @@
 /* code */
+
+#search-form {
+    margin-top: 12px;
+    margin-left: 24px;
+}
+
 #current-card {
-    background-color: bisque;
+    /* background-color: bisque; */
+    margin-right: 24px;
     border: solid;
     border-width: 12px;
     border-color: white;
 }
 
 #future-card {
+    justify-content: space-between;
     margin: 0;
-    /* background-color: beige; */
-    border: solid;
+    margin-right: 24px;
+    /* border: solid;
     border-width: 6px;
-    border-color: white;
-}
+    border-color: white; */
+} 
 
-#future-card span {
-    background-color: beige;
-    border: solid;
-    border-width: 6px;
-    border-color: white;
+#future-card ul {
+    height: fit-content;
+    /* border: solid; */
+    /* border-width: 6px; */
+    /* border-color: white; */
 }

@@ -13,13 +13,13 @@
 </head>
 
 <body>
-    <header class="columns">
+    <header class="box columns">
         <h1 class="column is-12">Weather Dashboard</h1>
     </header>
 
     <main class="columns">
 
-        <form id="search-form" class="column is-one-quarter">
+        <form id="search-form" class="box column is-one-quarter">
             <label>Search for a City:</label>
             <div class="field has-addons ">
                 <div class="control">
@@ -42,7 +42,7 @@
         </form>
 
         <section class="column">
-            <div id="current-card" class="column">
+            <div id="current-card" class="box column">
                 <span class="icon-text">
                     <span id="result-city">City</span>
                     <span id="current-date"></span>
@@ -53,18 +53,26 @@
                 </span>
                 <ul>
                     <li id="current-weather">Weather:</li>
-                    <li id="current-temp">Temperature:</li>
+                    <li id="current-temp">Temp:</li>
                     <li id="current-wind">Wind:</li>
                     <li id="current-humid">Humidity:</li>
                 </ul>
             </div>
+            
+            <div id="forecast-text">5-Day Forecast</div>
 
-            <div id="future-card" class="columns is-4">
-                <span class="column">Card</span>
-                <span class="column">Card</span>
-                <span class="column">Card</span>
-                <span class="column">Card</span>
-                <span class="column">Card</span>
+            <!-- bulma colums-gap doesn't work here. -->
+            <div id="future-card" class="columns is-2">
+                <ul class="box column">
+                    <li id="day1-date">Date:</li>
+                    <li class="icon"><img id="day1-icon"></li>
+                    <li id="day1-temp">Temp:</li>
+                    <li id="day1-wind">Wind:</li>
+                    <li id="day1-humid">Humidity:</li>
+                </ul>
+
+
+
             </div>
 
 
