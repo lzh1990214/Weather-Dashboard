@@ -6,43 +6,45 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./asset/reset.css">
-    <link rel="stylesheet" href="./asset/style.css">
+    
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./asset/style.css">
     <script src="https://kit.fontawesome.com/114cf67037.js" crossorigin="anonymous"></script>
     <title>Weather Dashboard</title>
 </head>
 
 <body>
-    <header class="box columns">
-        <h1 class="column is-12">Weather Dashboard</h1>
+    <header class="box columns has-background-info-dark">
+        <h1 class="column is-12 title is-3 has-text-white has-text-centered has-text-weight-bold">Weather Dashboard</h1>
     </header>
 
     <main class="columns">
 
-        <form id="search-form" class="box column is-one-quarter">
-            <label>Search for a City:</label>
-            <div class="field has-addons ">
+        <form id="search-form" class="column is-one-quarter is-flex is-flex-direction-column">
+            <label class="has-text-weight-bold has-text-info-dark has-text-centered">Search for a City</label>
+            <div class="column field has-addons ">
                 <div class="control">
-                    <input id="search-input" class="input " type="text" placeholder="Primary input">
+                    <input id="search-input" class="input " type="text" placeholder="Enter a city" onfocus="this.value=''">
                 </div>
                 <div class="control">
-                    <button id="search-btn" class="button">Search</button>
+                    <button id="search-btn" class="button is-info is-light">Search</button>
                 </div>
             </div>
             <div id="city-button" class="buttons">
-                <button class="button is-rounded is-fullwidth">Atlanta</button>
-                <button class="button is-rounded is-fullwidth">Denver</button>
-                <button class="button is-rounded is-fullwidth">Seattle</button>
-                <button class="button is-rounded is-fullwidth">San Francisco</button>
-                <button class="button is-rounded is-fullwidth">Orlando</button>
-                <button class="button is-rounded is-fullwidth">New York</button>
-                <button class="button is-rounded is-fullwidth">Chicago</button>
-                <button class="button is-rounded is-fullwidth">Austin</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Atlanta</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Denver</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Seattle</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">San Francisco</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Orlando</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">New York</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Chicago</button>
+                <button class="button is-rounded is-fullwidth is-info is-light">Austin</button>
             </div>
         </form>
 
-        <section class="column">
-            <div id="current-card" class="box column">
+
+        <section class="column ">
+            <div id="current-card" class="box column has-background-info-light has-text-info-dark">
                 <span class="icon-text">
                     <span id="result-city">City</span>
                     <span id="current-date"></span>
@@ -59,62 +61,56 @@
                 </ul>
             </div>
 
-            <div id="forecast-text">5-Day Forecast</div>
+            <div id="forecast-text" class="subtitle is-5 has-text-info-dark has-text-centered has-text-weight-bold">5-Day Forecast</div>
 
             <!-- bulma colums-gap doesn't work here. -->
-            <div id="future-card" class="columns is-2">
-                <ul class="box column">
+            <div id="future-card" class="columns">
+                <ul class="box column has-background-info-light has-text-info-dark">
                     <li id="date-1" class="date-future">Date:</li>
                     <li class="icon"><img id="icon-1" class="icon-future"></li>
+                    <li id="weather-1" class="weather-future">Weather:</li>
                     <li id="temp-1" class="temp-future">Temp:</li>
                     <li id="wind-1" class="wind-future">Wind:</li>
                     <li id="humid-1" class="humid-future">Humidity:</li>
                 </ul>
 
-                <ul class="box column">
+                <ul class="box column has-background-info-light has-text-info-dark">
                     <li id="date-2" class="date-future">Date:</li>
                     <li class="icon"><img id="icon-2" class="icon-future"></li>
+                    <li id="weather-2" class="weather-future">Weather:</li>
                     <li id="temp-2" class="temp-future">Temp:</li>
                     <li id="wind-2" class="wind-future">Wind:</li>
                     <li id="humid-2" class="humid-future">Humidity:</li>
                 </ul>
 
-                <ul class="box column">
+                <ul class="box column has-background-info-light has-text-info-dark">
                     <li id="date-3" class="date-future">Date:</li>
                     <li class="icon"><img id="icon-3" class="icon-future"></li>
+                    <li id="weather-3" class="weather-future">Weather:</li>
                     <li id="temp-3" class="temp-future">Temp:</li>
                     <li id="wind-3" class="wind-future">Wind:</li>
                     <li id="humid-3" class="humid-future">Humidity:</li>
                 </ul>
 
-                <ul class="box column">
+                <ul class="box column has-background-info-light has-text-info-dark">
                     <li id="date-4" class="date-future">Date:</li>
                     <li class="icon"><img id="icon-4" class="icon-future"></li>
+                    <li id="weather-4" class="weather-future">Weather:</li>
                     <li id="temp-4" class="temp-future">Temp:</li>
                     <li id="wind-4" class="wind-future">Wind:</li>
                     <li id="humid-4" class="humid-future">Humidity:</li>
                 </ul>
 
-                <ul class="box column">
+                <ul class="box column has-background-info-light has-text-info-dark">
                     <li id="date-5" class="date-future">Date:</li>
                     <li class="icon"><img id="icon-5" class="icon-future"></li>
+                    <li id="weather-5" class="weather-future">Weather:</li>
                     <li id="temp-5" class="temp-future">Temp:</li>
                     <li id="wind-5" class="wind-future">Wind:</li>
                     <li id="humid-5" class="humid-future">Humidity:</li>
                 </ul>
-
-
-
             </div>
-
-
-
-
-
-
         </section>
-
-
     </main>
 
 
