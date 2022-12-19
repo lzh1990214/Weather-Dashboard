@@ -62,7 +62,7 @@ function searchBtnSubmit(event) {
         console.log(event.target.textContent);
         searchBtnEl = event.target.textContent;
 
-        var cityQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=";
+        var cityQueryUrl = "https://api.openweathermap.org/geo/1.0/direct?q=";
         var apiKey = "&appid=bb14c28bb63d9f868721f7de3b94a011";
         cityQueryUrl = cityQueryUrl + searchBtnEl + "&limit=5" + apiKey;
 
@@ -90,7 +90,7 @@ function searchBtnSubmit(event) {
 
 //  function to fetch city data by city name with geocoding API
 function citySearchApi() {
-    var cityQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=";
+    var cityQueryUrl = "https://api.openweathermap.org/geo/1.0/direct?q=";
     var apiKey = "&appid=bb14c28bb63d9f868721f7de3b94a011";
     cityQueryUrl = cityQueryUrl + cityName + "&limit=5" + apiKey;
 
@@ -152,7 +152,7 @@ function weatherApi() {
             // console.log(weatherID);
             var iconID = data.weather[0].icon;
             // console.log(iconID);
-            document.getElementById("current-icon").src = "http://openweathermap.org/img/wn/" + iconID + "@2x.png";
+            document.getElementById("current-icon").src = "https://openweathermap.org/img/wn/" + iconID + "@2x.png";
         })
         .catch(function (error) {
             console.error(error);
@@ -206,7 +206,7 @@ function weather5dayApi() {
                 allTempEl[i].textContent = "Temp: " + parseFloat((Number(temp5day[i]) - 273.15) * 1.8 + 32).toFixed(2) + "\xB0" + "F";
                 allWindEl[i].textContent = "Wind: " + wind5day[i] + " MPH";
                 allHumidEl[i].textContent = "Humidity: " + humid5day[i] + "%";
-                allIconEl[i].src = "http://openweathermap.org/img/wn/" + iconID5day[i] + "@2x.png";
+                allIconEl[i].src = "https://openweathermap.org/img/wn/" + iconID5day[i] + "@2x.png";
             }
         })
         .catch(function (error) {
