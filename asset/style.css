@@ -1,4 +1,3 @@
-
 #search-form {
     align-items: center;
     margin-left: 0.75rem;
@@ -15,8 +14,24 @@
     justify-content: space-between;
     margin-left: 0.75rem;
     margin-right: 0.75rem;
-} 
+}
 
 #future-card ul {
     height: fit-content;
+}
+
+#search-row {
+    height: fit-content;
+}
+
+#search-row-input {
+    height: fit-content;
+}
+
+#search-row-text {
+    height: min-content;
+}
+
+#city-button button {
+    width: 15rem;
 }

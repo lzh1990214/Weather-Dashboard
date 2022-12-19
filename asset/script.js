@@ -9,6 +9,8 @@ var currentWindEl = document.querySelector("#current-wind")
 var currentHumidEl = document.querySelector("#current-humid")
 var currentWeatherEl = document.querySelector("#current-weather")
 var cityName;
+// set key to 0 for localStorage
+var key = 0;
 
 // enable "click" function on search and execute search of the key word
 searchBtnEl.addEventListener("click", searchInputSubmit);
@@ -18,19 +20,42 @@ cityBtnEl.addEventListener("click", searchBtnSubmit);
 function searchInputSubmit(event) {
     event.preventDefault();
     cityName = searchInputEl.value.trim();
-    console.log(cityName);
+    // console.log(cityName);
 
-    if (!cityName) {
-        console.error('You need a enter a valid city name!');
-        return;
-    };
+    // key number +1 everytime when the submit function execute
+    key++;
+    // store key number and city name in localStorage
+    localStorage.setItem(key, cityName);
+    // control the number of search history to 8 max, 
+    // new search history will overwrite the old list if the list number is more than 8
+    if (key >= 8) {
+        key = 0;
+    }
+    createHistoryBtn();
     // execute fetch city data with geocoding API
     citySearchApi();
     // clear the input value after search
     searchInputEl.value = "";
 }
 
-// search by clicking the city buttons
+// create search history list in html
+function createHistoryBtn() {
+    var historyBtnEl = document.createElement("button");
+    var btnId = "historyBtn-" + key;
+    historyBtnEl.setAttribute("class", "button is-rounded is-fullwidth is-info is-light");
+    historyBtnEl.setAttribute("id", btnId);
+    historyBtnEl.textContent = cityName;
+    // if the history button number is less than 8, can create a new button
+    if (cityBtnEl.children.length < 8) {
+        cityBtnEl.appendChild(historyBtnEl);
+    } else {
+        // if the history button is 8, replace the buttons from the first row on the history list
+        var replaceBtn = cityBtnEl.children[key-1];
+        cityBtnEl.replaceChild(historyBtnEl, replaceBtn);
+    };
+}
+
+// search by clicking the city buttons in the search history list
 function searchBtnSubmit(event) {
     event.preventDefault();
     if (event.target.id = "#city-button") {
@@ -46,7 +71,7 @@ function searchBtnSubmit(event) {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
+                // console.log(data);
                 // show the first city name in the search result on dashboard
                 resultCityEl.textContent = data[0].name + " ";
                 // extract latitude and longitude data, and only leave two digits after the decimal of each number
@@ -63,7 +88,6 @@ function searchBtnSubmit(event) {
     }
 };
 
-
 //  function to fetch city data by city name with geocoding API
 function citySearchApi() {
     var cityQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=";
@@ -75,7 +99,7 @@ function citySearchApi() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
             // show the first city name in the search result on dashboard
             resultCityEl.textContent = data[0].name + " ";
             // extract latitude and longitude data, and only leave two digits after the decimal of each number
@@ -102,7 +126,7 @@ function weatherApi() {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            // console.log(data);
             // convert "dt" (unix timestamp) to numeric format 
             var currentYear = new Date(data.dt * 1000).toLocaleString("en-US", { year: "numeric" });
             var currentMonth = new Date(data.dt * 1000).toLocaleString("en-US", { month: "numeric" });
@@ -127,7 +151,7 @@ function weatherApi() {
             // var weatherID = data.weather[0].id;
             // console.log(weatherID);
             var iconID = data.weather[0].icon;
-            console.log(iconID);
+            // console.log(iconID);
             document.getElementById("current-icon").src = "http://openweathermap.org/img/wn/" + iconID + "@2x.png";
         })
         .catch(function (error) {
@@ -152,8 +176,10 @@ function weather5dayApi() {
             var humid5day = [];
             var iconID5day = [];
 
-            // Loop through all days and time (40 objects in an array called "list")  
-            for (i = 0; i < data.list.length; i += 8) {
+            // Loop through all days and time (40 objects in an array called "list").
+            // note: because the free API "5day/3hour forecast" has weather data with 3-hour steps,
+            // i have to extact the data from index 7 (24 hrs interval) to make sure getting the data from "tomorrow"
+            for (i = 7; i < data.list.length; i += 8) {
                 // extact the first 10 letters in the date & time string then push in an array. Extracted date example "2022-12-18".
                 date5day.push(data.list[i].dt_txt.substr(0, 10));
                 weather5day.push(data.list[i].weather[0].main);
@@ -163,6 +189,7 @@ function weather5dayApi() {
                 iconID5day.push(data.list[i].weather[0].icon);
             }
 
+            // console.log(date5day);
             // get all elements with "date" class and use a for loop to show the date of each day
             var allDateEl = document.getElementsByClassName("date-future");
             var allWeatherEl = document.getElementsByClassName("weather-future");
