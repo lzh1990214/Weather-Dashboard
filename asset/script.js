@@ -8,7 +8,7 @@ var currentTempEl = document.querySelector("#current-temp")
 var currentWindEl = document.querySelector("#current-wind")
 var currentHumidEl = document.querySelector("#current-humid")
 var currentWeatherEl = document.querySelector("#current-weather")
-// var cityNameEl = []
+var cityName;
 
 // enable "click" function on search and execute search of the key word
 searchBtnEl.addEventListener("click", searchInputSubmit);
@@ -17,17 +17,17 @@ cityBtnEl.addEventListener("click", searchBtnSubmit);
 // search by user input
 function searchInputSubmit(event) {
     event.preventDefault();
-    
-    searchInputEl = searchInputEl.value.trim();
-    console.log(searchInputEl);
+    cityName = searchInputEl.value.trim();
+    console.log(cityName);
 
-    if (!searchInputEl) {
+    if (!cityName) {
         console.error('You need a enter a valid city name!');
         return;
     };
     // execute fetch city data with geocoding API
     citySearchApi();
-    
+    // clear the input value after search
+    searchInputEl.value = "";
 }
 
 // search by clicking the city buttons
@@ -68,7 +68,7 @@ function searchBtnSubmit(event) {
 function citySearchApi() {
     var cityQueryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=";
     var apiKey = "&appid=bb14c28bb63d9f868721f7de3b94a011";
-    cityQueryUrl = cityQueryUrl + searchInputEl + "&limit=5" + apiKey;
+    cityQueryUrl = cityQueryUrl + cityName + "&limit=5" + apiKey;
 
     fetch(cityQueryUrl)
         .then(function (response) {
@@ -81,12 +81,6 @@ function citySearchApi() {
             // extract latitude and longitude data, and only leave two digits after the decimal of each number
             cityLatEl = parseFloat(data[0].lat).toFixed(2);
             cityLonEl = parseFloat(data[0].lon).toFixed(2);
-            // console.log(cityLatEl);
-            // console.log(cityLonEl);
-            // push city names into an array (5 city names max due to API limitation)
-            // for (i = 0; i < data.length; i++) {
-            //     cityNameEl.push(data[i].name);
-            // }
 
             // run weather Api function
             weatherApi();
@@ -168,11 +162,7 @@ function weather5dayApi() {
                 humid5day.push(data.list[i].main.humidity);
                 iconID5day.push(data.list[i].weather[0].icon);
             }
-            // console.log(date5day);
-            // console.log(temp5day);
-            // console.log(wind5day);
-            // console.log(humid5day);
-            // console.log(iconID5day);
+
             // get all elements with "date" class and use a for loop to show the date of each day
             var allDateEl = document.getElementsByClassName("date-future");
             var allWeatherEl = document.getElementsByClassName("weather-future");
@@ -197,8 +187,3 @@ function weather5dayApi() {
         });
 }
 
-// resetForm();
-
-// function resetForm() {
-//     document.getElementById("search-form").reset();
-// }
